@@ -2,6 +2,21 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { db } from "../../../lib/db";
 
+export async function GET(req: NextRequest) {
+  const origin = req.headers.get("origin") ?? "*";
+  const projectIds = await db.listProjectIds();
+
+  return NextResponse.json(
+    { projectIds },
+    {
+      headers: {
+        "Access-Control-Allow-Origin": origin,
+        "Access-Control-Allow-Credentials": "true",
+      },
+    },
+  );
+}
+
 export async function POST(req: NextRequest) {
   const session = cookies().get("taskflow_session");
   if (!session) {
