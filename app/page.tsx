@@ -1,9 +1,27 @@
 import { getTaskSummary } from "../lib/dashboard";
 
+async function getUpstreamStatus() {
+  try {
+    const statusRes = await fetch("https://status.example-upstream.com/api/health", {
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!statusRes.ok) {
+      return { status: "unknown" };
+    }
+
+    return await statusRes.json();
+  } catch (err) {
+    if (err instanceof Error && (err.name === "TimeoutError" || err.name === "AbortError")) {
+      return { status: "timed out" };
+    }
+    return { status: "unavailable" };
+  }
+}
+
 export default async function HomePage() {
   const summary = await getTaskSummary();
-  const statusRes = await fetch("https://status.example-upstream.com/api/health");
-  const upstream = await statusRes.json();
+  const upstream = await getUpstreamStatus();
 
   return (
     <main>
