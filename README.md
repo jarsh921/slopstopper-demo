@@ -8,3 +8,5 @@ A small team task tracker, built with Next.js and Supabase.
 npm install
 npm run dev
 ```
+
+Track team tasks across projects, with Supabase-backed storage.
