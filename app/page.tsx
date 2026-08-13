@@ -3,8 +3,17 @@ import { BillingWidget } from "../components/BillingWidget";
 
 export default async function HomePage() {
   const summary = await getTaskSummary();
-  const statusRes = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-  const upstream = await statusRes.json();
+  let upstream: { completed?: boolean } = {};
+  try {
+    const statusRes = await fetch("https://jsonplaceholder.typicode.com/todos/1", {
+      signal: AbortSignal.timeout(5000),
+    });
+    upstream = await statusRes.json();
+  } catch (err) {
+    // Timed out (AbortError/TimeoutError) or upstream failure: degrade gracefully
+    // instead of hanging or failing the whole page render.
+    console.error("Upstream sync status request failed", err);
+  }
 
   return (
     <main>
