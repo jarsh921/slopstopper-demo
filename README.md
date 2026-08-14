@@ -22,3 +22,5 @@ Rescanned to test the new CORS/broken-link/form-validation/accessibility AI-fix 
 Retriggered after closing the prior PR so this scan opens a genuinely fresh one.
 
 Retriggered once more after fixing a same-batch stale-read bug the last run surfaced.
+
+Retriggered to verify the new auto-fix/AI-fix split title and quota-by-fix-count changes.
