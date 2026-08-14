@@ -16,3 +16,5 @@ See the demo scan report for the full punch list.
 Rescanned to show the latest SlopStopper PR format.
 
 Rescanned again after confirming both prior PRs were fully closed.
+
+Rescanned to test the new CORS/broken-link/form-validation/accessibility AI-fix path.
